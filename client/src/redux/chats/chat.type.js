@@ -1,0 +1,7 @@
+const ChatActionTypes = {
+  ADD_USERNAME: "ADD_USERNAME",
+  ADD_ROOM: "ADD_ROOM",
+  ADD_CURRENT_MESSAGE: "ADD_CURRENT_MESSAGE",
+  ADD_TO_MESSAGES: "ADD_TO_MESSAGES",
+};
+ export default ChatActionTypes;
