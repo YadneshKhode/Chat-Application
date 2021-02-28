@@ -3,6 +3,7 @@ import React from "react";
 import "./chat.style.css";
 import Message from "./message.component";
 import ScrollToBottom from "react-scroll-to-bottom";
+import { connect } from "react-redux";
 // const io = require("socket.io-client");
 // const socket = io();
 
@@ -18,7 +19,15 @@ const ChatMessage = React.memo(({ username, messages }) => {
     </ScrollToBottom>
   );
 });
-export default ChatMessage;
+
+const mapStateToProps = (state) => {
+  return {
+    username: state.chat.username,
+    messages: state.chat.messages,
+  };
+};
+
+export default connect(mapStateToProps)(ChatMessage);
 
 // eslint-disable-next-line no-lone-blocks
 {

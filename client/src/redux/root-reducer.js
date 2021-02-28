@@ -6,8 +6,7 @@ import chatReducer from "./chats/chat.reducer";
 const persistConfig = {
   key: "root",
   storage,
-  // whitelist: ["chat"],
-  // whitelist: ["chat"],
+  whitelist: ["chat"],
 };
 
 const rootReducer = combineReducers({
