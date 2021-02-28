@@ -5,7 +5,10 @@ import { connect } from "react-redux";
 
 const SidebarChat = (props) => {
   const { room, messages } = props;
-  const lastMessage = messages[messages.length - 1].message;
+  let lastMessage;
+  messages.length > 0
+    ? (lastMessage = messages[messages.length - 1].message)
+    : (lastMessage = "");
   return (
     <div className="sidebarChat">
       <Avatar />
@@ -20,7 +23,7 @@ const SidebarChat = (props) => {
 const mapStateToProps = (state) => {
   return {
     room: state.chat.room,
-    messages: state.chat.messages,  
+    messages: state.chat.messages,
   };
 };
 

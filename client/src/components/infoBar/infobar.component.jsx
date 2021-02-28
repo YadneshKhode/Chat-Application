@@ -4,7 +4,11 @@ import { connect } from "react-redux";
 
 const InfoBar = (props) => {
   const { room, messages } = props;
-  const lastCreatedAt = messages[messages.length - 1].createdAt;
+  let lastCreatedAt;
+  messages.length > 0
+    ? (lastCreatedAt = messages[messages.length - 1].createdAt)
+    : (lastCreatedAt = "");
+
   return (
     <div className="chat__headerInfo">
       <h3>
