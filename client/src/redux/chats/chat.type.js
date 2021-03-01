@@ -3,5 +3,6 @@ const ChatActionTypes = {
   ADD_ROOM: "ADD_ROOM",
   ADD_CURRENT_MESSAGE: "ADD_CURRENT_MESSAGE",
   ADD_TO_MESSAGES: "ADD_TO_MESSAGES",
+  CLEAR_STATE: "CLEAR_STATE",
 };
- export default ChatActionTypes;
+export default ChatActionTypes;

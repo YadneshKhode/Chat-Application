@@ -8,9 +8,9 @@ const Message = ({mess:{user,message,createdAt}, username}) => {
 
   return isSentByCurrentUser ? (
     <p className="chat__message chat__receiver">
-    <span className="chat__name">{trimmedName}</span>
+    <span className="chat__name">{user}</span>
     {message}
-    <span className="chat__timestamp">{user.createdAt}</span>
+    <span className="chat__timestamp">{createdAt}</span>
   </p>
   ) :(
     <p className="chat__message">

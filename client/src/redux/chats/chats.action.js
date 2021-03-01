@@ -16,3 +16,6 @@ export const addToMessages = (message) => ({
   type: ChatActionTypes.ADD_TO_MESSAGES,
   payload: message,
 });
+export const clearState = () => ({
+  type: ChatActionTypes.CLEAR_STATE,
+});

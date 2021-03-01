@@ -16,19 +16,27 @@ import {
   addRoom,
   addCurrentMessage,
   addToMessages,
+  clearState,
 } from "../../redux/chats/chats.action";
 import { connect } from "react-redux";
 let socket;
-// let user;
 const Chat = React.memo((props) => {
-  const { addUserName, addRoomName, addMessage, addMessToArr } = props;
+  const {
+    addUserName,
+    addRoomName,
+    addMessage,
+    addMessToArr,
+    clearChatState,
+  } = props;
   const [username, setName] = useState("");
   const [room, setRoom] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const ENDPOINT = "http://localhost:5000";
-  // const ENDPOINT = "";
   const location = useLocation();
+  useEffect(() => {
+    clearChatState();
+  }, [clearChatState]);
   useEffect(() => {
     const { username, room } = queryString.parse(location.search);
     socket = io(ENDPOINT);
@@ -36,6 +44,7 @@ const Chat = React.memo((props) => {
     addUserName(username);
     setRoom(room);
     addRoomName(room);
+
     socket.emit("join", { username, room }, (error) => {
       if (error) {
         alert(error);
@@ -43,6 +52,7 @@ const Chat = React.memo((props) => {
     });
 
     return () => {
+      console.log("khallas");
       socket.emit("disconnect");
       socket.off(); // turn off the current connection instance.
     };
@@ -50,7 +60,6 @@ const Chat = React.memo((props) => {
 
   useEffect(() => {
     socket.on("message", (fulldata) => {
-      // user = fulldata;
       setMessages([...messages, fulldata]);
       addMessToArr(fulldata);
     });
@@ -61,7 +70,6 @@ const Chat = React.memo((props) => {
 
   const sendMessage = (e) => {
     e.preventDefault();
-    // console.log("Inside sendMessage");
     if (message) {
       socket.emit("sendMessage", message, () => {
         setMessage("");
@@ -71,8 +79,7 @@ const Chat = React.memo((props) => {
       console.log("message = " + message);
     }
   };
-  // console.log("message = " + JSON.stringify(message));
-  // console.log("messages = " + JSON.stringify(messages));
+
   return (
     <div className="chat">
       <div className="chat__header">
@@ -118,6 +125,7 @@ const mapDispatchToProps = (dispatch) => {
     addRoomName: (room) => dispatch(addRoom(room)),
     addMessage: (message) => dispatch(addCurrentMessage(message)),
     addMessToArr: (message) => dispatch(addToMessages(message)),
+    clearChatState: () => dispatch(clearState()),
   };
 };
 

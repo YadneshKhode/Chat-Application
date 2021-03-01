@@ -5,6 +5,7 @@ const initialState = {
   room: "",
   message: "",
   messages: [],
+  users: [],
 };
 
 const chatReducer = (state = initialState, action) => {
@@ -28,6 +29,13 @@ const chatReducer = (state = initialState, action) => {
       return {
         ...state,
         messages: [...state.messages, action.payload],
+      };
+    case ChatActionTypes.CLEAR_STATE:
+      return {
+        username: "",
+        room: "",
+        message: "",
+        messages: [],
       };
     default:
       return state;
