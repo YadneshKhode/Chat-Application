@@ -1,10 +1,9 @@
 import React from "react";
 import "./sidebar.style.css";
-import DonutLargeIcon from "@material-ui/icons/DonutLarge";
 import { Avatar, IconButton } from "@material-ui/core";
-import ChatIcon from "@material-ui/icons/Chat";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import { SearchOutlined } from "@material-ui/icons";
+// import ChatIcon from "@material-ui/icons/Chat";
+// import MoreVertIcon from "@material-ui/icons/MoreVert";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 import SidebarChat from "../sidebar-chat/sidebarchat.component";
 const Sidebar = () => {
   return (
@@ -13,14 +12,14 @@ const Sidebar = () => {
         <Avatar src="https://lh3.googleusercontent.com/ogw/ADGmqu9aFRQkhjsIHTP2JL8BIF3XnSl-iYxhU3buS1PzdQ=s32-c-mo" />
         <div className="sidebar__headerRight">
           <IconButton>
-            <DonutLargeIcon />
+            <AddCircleIcon />
           </IconButton>
-          <IconButton>
+          {/* <IconButton>
             <ChatIcon />
-          </IconButton>
-          <IconButton>
+          </IconButton> */}
+          {/* <IconButton>
             <MoreVertIcon />
-          </IconButton>
+          </IconButton> */}
         </div>
       </div>
       {/* <div className="sidebar__search">
@@ -30,7 +29,7 @@ const Sidebar = () => {
         </div>
       </div> */}
       <div className="sidebar__chats">
-        <SidebarChat/>
+        <SidebarChat />
       </div>
     </div>
   );

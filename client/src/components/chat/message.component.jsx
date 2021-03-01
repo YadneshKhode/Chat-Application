@@ -1,6 +1,5 @@
 import React from "react";
-
-const Message = ({mess:{user,message,createdAt}, username}) => {
+const Message = ({ mess: { user, message, createdAt }, username }) => {
   console.log("message in message component= " + message);
   let isSentByCurrentUser = false;
   const trimmedName = username.trim().toLowerCase();
@@ -8,16 +7,16 @@ const Message = ({mess:{user,message,createdAt}, username}) => {
 
   return isSentByCurrentUser ? (
     <p className="chat__message chat__receiver">
-    <span className="chat__name">{user}</span>
-    {message}
-    <span className="chat__timestamp">{createdAt}</span>
-  </p>
-  ) :(
+      <span className="chat__name">{user}</span>
+      <span className="chat__mess">{message}</span>
+      <span className="chat__timestamp">{createdAt}</span>
+    </p>
+  ) : (
     <p className="chat__message">
-    <span className="chat__name">{user}</span>
-    {message}
-    <span className="chat__timestamp">{createdAt}</span>
-  </p>
+      <span className="chat__name">{user}</span>
+      {message}
+      <span className="chat__timestamp">{createdAt}</span>
+    </p>
   );
 };
 

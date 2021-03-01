@@ -1,16 +1,22 @@
 const generateMessage = (user, message) => {
-  let today = new Date(),
-    date =
-      today.getHours() +
-      " : " +
-      today.getMinutes() 
-      // +
-      // " " +
-      // today.getFullYear() +
-      // "-" +
-      // (today.getMonth() + 1) +
-      // "-" +
-      // today.getDate();
+  let today = new Date();
+  let hour = today.getHours();
+  let minute = today.getMinutes();
+  let hours = hour < 10 ? "0" + hour : hour;
+  let minutes = minute < 10 ? "0" + minute : minute;
+  if (hours < 12) {
+    date = hours + " : " + minutes + " am";
+  } else {
+    date = hours + " : " + minutes + " pm";
+  }
+
+  // +
+  // " " +
+  // today.getFullYear() +
+  // "-" +
+  // (today.getMonth() + 1) +
+  // "-" +
+  // today.getDate();
   return {
     user,
     message,

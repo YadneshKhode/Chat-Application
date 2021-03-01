@@ -86,14 +86,6 @@ body {
   display: flex;
 }
 
-.chat__sidebar {
-  height: 100vh;
-  color: white;
-  background: #333744;
-  width: 225px;
-  overflow-y: auto
-}
-
 /* Chat styles */
 
 .chat__main {
@@ -102,7 +94,9 @@ body {
   flex-direction: column;
   max-height: 100vh;
 }
-
+.chat__mess{
+  margin-top: 20px;
+}
 .chat__messages {
   flex-grow: 1;
   padding: 24px 24px 0 24px;
@@ -212,7 +206,7 @@ body {
 .chat__message {
   position: relative;
   font-size: 16px;
-  padding: 10px;
+  padding: 30px 10px 12px 10px;
   border-radius: 10px;
   background-color: #ffffff;
   margin-bottom: 30px;
@@ -228,7 +222,7 @@ body {
 }
 .chat__name {
   position: absolute;
-  top: -20px;
+  top: 1px;
   font-weight: 800;
   font-size: 15px;
 }
@@ -257,9 +251,9 @@ body {
   padding:10px;
   color: gray;
 }
-.onlineIcon{
+/* .onlineIcon{
   margin-bottom: 2px;
-}
+} */
 .sidebarChat{
   display: flex;
   padding: 20px;
@@ -286,18 +280,18 @@ body {
 .sidebar__header {
   display: flex;
   justify-content: space-between;
-  padding: 20px;
+  padding: 23px;
   border-right: 1px solid lightgray;
 }
 .sidebar__headerRight {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   min-width: 10vw;
 }
 .sidebar__headerRight > .MuiSvgIcon-root {
   margin-right: 2vw;
   font-size: 24px !important;
+  color:grey;
 }
 .sidebar__search {
   display: flex;
@@ -327,4 +321,36 @@ body {
   flex: 1;
   background-color: white;
   overflow: auto;
+}
+.exit__button{
+  color: red;
+}
+
+/* 
+ToolTip CSS
+*/
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 80px;
+  font-size:15px;
+  background-color: white;
+  color: #000;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  top: -5px;
+  right: 105%;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }

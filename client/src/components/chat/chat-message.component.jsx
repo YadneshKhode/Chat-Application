@@ -9,14 +9,17 @@ import { connect } from "react-redux";
 
 const ChatMessage = React.memo(({ username, messages }) => {
   return (
-    <ScrollToBottom>
+    <>
       {/* chat__receiver give this class if you are receiver of the message*/}
-      {messages.map((mess, i) => (
-        <div key={i}>
-          <Message mess={mess} username={username} />
-        </div>
-      ))}
-    </ScrollToBottom>
+
+      <ScrollToBottom>
+        {messages.map((mess, i) => (
+          <div key={i}>
+            <Message mess={mess} username={username} />
+          </div>
+        ))}
+      </ScrollToBottom>
+    </>
   );
 });
 
@@ -35,5 +38,19 @@ export default connect(mapStateToProps)(ChatMessage);
   <span className="chat__name">{username}</span>
   {mess}
   <span className="chat__timestamp">{{createdAt}}</span>
-</p>; */
+</p>; 
+
+
+
+
+<ScrollToBottom>
+ chat__receiver give this class if you are receiver of the message
+{messages.map((mess, i) => (
+  <div key={i}>
+    <Message mess={mess} username={username} />
+  </div>
+))}
+</ScrollToBottom>
+
+*/
 }

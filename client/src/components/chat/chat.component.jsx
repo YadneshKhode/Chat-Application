@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import { useLocation } from "react-router-dom";
 import "./chat.style.css";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { AttachFile, InsertEmoticon } from "@material-ui/icons";
 import MicIcon from "@material-ui/icons/Mic";
 import Input from "../input/input.component";
@@ -56,7 +55,7 @@ const Chat = React.memo((props) => {
       socket.emit("disconnect");
       socket.off(); // turn off the current connection instance.
     };
-  }, [ENDPOINT, location.search]);
+  }, [ENDPOINT, location.search, addRoomName, addUserName]);
 
   useEffect(() => {
     socket.on("message", (fulldata) => {
@@ -66,7 +65,7 @@ const Chat = React.memo((props) => {
     return () => {
       socket.off();
     };
-  }, [messages]);
+  }, [messages, addMessToArr]);
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -87,20 +86,27 @@ const Chat = React.memo((props) => {
         <InfoBar room={room} />
         <div className="chat__headerRight">
           <IconButton>
-            <a href="/">
-              <CancelRoundedIcon />
-            </a>
+            <div className="tooltip">
+              <a href="/" className="exit__button">
+                <CancelRoundedIcon />
+              </a>
+              <span className="tooltiptext">Exit Chat Room</span>
+            </div>
           </IconButton>
           <IconButton>
-            <AttachFile />
+            <div className="tooltip">
+              <AttachFile />
+              <span className="tooltiptext">Attach File</span>
+            </div>
           </IconButton>
-          <IconButton>
+          {/* <IconButton>
             <MoreVertIcon />
-          </IconButton>
+          </IconButton> */}
         </div>
       </div>
+
       <div className="chat__body">
-        <ChatMessage username={username} messages={messages} />
+          <ChatMessage username={username} messages={messages} />
       </div>
       <div className="chat__footer">
         <IconButton>
