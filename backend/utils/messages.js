@@ -5,18 +5,11 @@ const generateMessage = (user, message) => {
   let hours = hour < 10 ? "0" + hour : hour;
   let minutes = minute < 10 ? "0" + minute : minute;
   if (hours < 12) {
-    date = hours + " : " + minutes + " am";
+    date = hours + ":" + minutes + " am";
   } else {
-    date = hours + " : " + minutes + " pm";
+    date = hours + ":" + minutes + " pm";
   }
 
-  // +
-  // " " +
-  // today.getFullYear() +
-  // "-" +
-  // (today.getMonth() + 1) +
-  // "-" +
-  // today.getDate();
   return {
     user,
     message,
@@ -35,7 +28,6 @@ const generateLocationMessage = (user, url) => {
   return {
     user,
     url,
-    // createdAt: new Date().getTime(),
     createdAt: time,
   };
 };

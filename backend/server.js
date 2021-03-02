@@ -1,20 +1,17 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const app = express();
 const port = process.env.PORT || 5000;
 const path = require("path");
 const publicDirectoryPath = path.join(__dirname, "../whatsapp-mern/public");
 const http = require("http");
 const socketio = require("socket.io");
-const cors = require('cors');
+const cors = require("cors");
 const server = http.createServer(app);
 const io = socketio(server, {
   cors: {
     origin: "*",
   },
 });
-const router = require("./router");
-// const Messages = require("./dbMessages");
 
 const {
   addUser,
@@ -28,25 +25,9 @@ const {
 } = require("./utils/messages");
 app.use(express.json());
 app.use(express.static(publicDirectoryPath));
-app.use(cors())
-
-//Connecting To DB
-
-const connection_url =
-  "mongodb+srv://yadnesh:yadnesh@cluster0.wpwgl.mongodb.net/crypto-chat-app-db?retryWrites=true&w=majority";
-
-mongoose.connect(connection_url, {
-  useCreateIndex: true,
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-app.use(router);
+app.use(cors());
 
 io.on("connect", (socket) => {
-  
-  console.log("New Websocket connection detected");
-
   socket.on("join", ({ username, room }, callback) => {
     const { error, user } = addUser({ id: socket.id, username, room });
     if (error) {
@@ -77,15 +58,10 @@ io.on("connect", (socket) => {
     callback();
   });
   socket.on("sendMessage", (message, callback) => {
-    console.log("mess = "+message);
     const user = getUser(socket.id);
-    console.log("user = " + JSON.stringify(user));
-    
-    io.to(user.room).emit(
-      "message",
-      generateMessage(user.username, message)
-    );
-    
+
+    io.to(user.room).emit("message", generateMessage(user.username, message));
+
     callback();
   });
 

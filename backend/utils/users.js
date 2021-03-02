@@ -24,7 +24,6 @@ const addUser = ({ id, username, room }) => {
   //Store
   const user = { id, username, room };
   users.push(user);
-  console.log("user Object" + JSON.stringify(user));
   return { user };
 };
 
