@@ -20,66 +20,6 @@ body {
   font-family: Helvetica, Arial, sans-serif;
 }
 
-.centered-form__input {
-  border: 1px solid #eeeeee;
-  padding: 12px;
-  outline: none;
-}
-.centered-form__label {
-  display: block;
-  font-size: 14px;
-  margin-bottom: 8px;
-  color: #777;
-}
-
-.centered-form__button {
-  cursor: pointer;
-  padding: 12px;
-  background: #7C5CBF;
-  border: none;
-  color: white;
-  font-size: 16px;
-  transition: background .3s ease;
-}
-
-.centered-form__button:hover {
-  background: #6b47b8;
-}
-
-.centered-form__button:disabled {
-  cursor: default;
-  background: #7c5cbf94;
-}
-
-/* Join Page Styles */
-
-.centered-form {
-  background: #333744;
-  width: 100vw;
-  height: 100vh;   
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.centered-form__box {
-  box-shadow: 0px 0px 17px 1px #1D1F26;
-  background: #F7F7FA;
-  padding: 24px;
-  width: 250px;
-}
-
-.centered-form button {
-  width: 100%;
-}
-
-.centered-form input {
-  margin-bottom: 16px;
-  width: 100%;
-}
-.centered-form__title {
-  margin-bottom: 16px;
-}
 /* Chat Page Layout */
 
 .chat {
@@ -94,7 +34,7 @@ body {
   flex-direction: column;
   max-height: 100vh;
 }
-.chat__mess{
+.chat__mess {
   margin-top: 20px;
 }
 .chat__messages {
@@ -106,7 +46,7 @@ body {
 /* Message Styles */
 
 .message {
-  margin-bottom: 16px;   
+  margin-bottom: 16px;
 }
 
 .message__name {
@@ -121,7 +61,7 @@ body {
 }
 
 .message a {
-  color: #0070CC;
+  color: #0070cc;
 }
 
 /* Message Composition Styles */
@@ -157,7 +97,7 @@ body {
   font-weight: 400;
   font-size: 22px;
   background: #2c2f3a;
-  padding: 24px;   
+  padding: 24px;
 }
 
 .list-title {
@@ -247,27 +187,27 @@ body {
 .chat__footer > form > button {
   display: none;
 }
-.chat__footer > .MuiSvgIcon-root{
-  padding:10px;
+.chat__footer > .MuiSvgIcon-root {
+  padding: 10px;
   color: gray;
 }
 /* .onlineIcon{
   margin-bottom: 2px;
 } */
-.sidebarChat{
+.sidebarChat {
   display: flex;
   padding: 20px;
   cursor: pointer;
   border-bottom: 1px solid #f6f6f6;
 }
-.sidebarChat:hover{
+.sidebarChat:hover {
   background-color: #ebebeb;
 }
-.sidebar__chatInfo{
- margin-left: 15px;
+.sidebar__chatInfo {
+  margin-left: 15px;
 }
 
-.sidebar__chatInfo > h2{
+.sidebar__chatInfo > h2 {
   font-size: 16px;
   margin-bottom: 8px;
 }
@@ -291,7 +231,7 @@ body {
 .sidebar__headerRight > .MuiSvgIcon-root {
   margin-right: 2vw;
   font-size: 24px !important;
-  color:grey;
+  color: grey;
 }
 .sidebar__search {
   display: flex;
@@ -310,7 +250,7 @@ body {
 }
 .sidebar__searchContainer > .MuiSvgIcon-root {
   color: gray;
-  padding: 10px;
+  padding-left: 5px;
 }
 .sidebar__searchContainer > input {
   border: none;
@@ -322,7 +262,7 @@ body {
   background-color: white;
   overflow: auto;
 }
-.exit__button{
+.exit__button {
   color: red;
 }
 
@@ -337,7 +277,7 @@ ToolTip CSS
 .tooltip .tooltiptext {
   visibility: hidden;
   width: 80px;
-  font-size:15px;
+  font-size: 15px;
   background-color: white;
   color: #000;
   text-align: center;
@@ -353,4 +293,66 @@ ToolTip CSS
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
+}
+
+.centered-form__input {
+  border: 1px solid #eeeeee;
+  padding: 12px;
+  outline: none;
+}
+.centered-form__label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #777;
+}
+
+.centered-form__button {
+  cursor: pointer;
+  padding: 12px;
+  background: #7c5cbf;
+  border: none;
+  color: white;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+.centered-form__button:hover {
+  background: #6b47b8;
+}
+
+.centered-form__button:disabled {
+  cursor: default;
+  background: #7c5cbf94;
+}
+
+/* Join Page Styles */
+
+.centered-form {
+  background: #333744;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.centered-form__box {
+  box-shadow: 0px 0px 17px 1px #1d1f26;
+  background: #f7f7fa;
+  padding: 24px;
+  width: 250px;
+}
+
+.centered-form button {
+  width: 100%;
+}
+
+.centered-form input {
+  margin-bottom: 16px;
+  width: 100%;
+}
+.centered-form__title {
+  margin-bottom: 16px;
+  width: inherit;
 }

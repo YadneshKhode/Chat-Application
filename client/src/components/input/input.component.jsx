@@ -10,23 +10,14 @@ const Input = React.memo(({ message, setMessage, sendMessage }) => {
           placeholder="Type a message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          // onChange={({ target: { value } }) => setMessage(value)}
-          onKeyPress={
-            
-            (e) => (e.key === "Enter" ? sendMessage(e) : null)
-            
-            
-            }
+          onKeyPress={(e) => (e.key === "Enter" ? sendMessage(e) : null)}
         />
-        {/* <button onClick={(e) => sendMessage(e)}>
-          Send message
-        </button> */}
       </form>
       <IconButton onClick={(e) => sendMessage(e)}>
         <SendIcon />
       </IconButton>
     </>
   );
-})
+});
 
 export default Input;

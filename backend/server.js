@@ -30,6 +30,7 @@ app.use(cors());
 io.on("connect", (socket) => {
   socket.on("join", ({ username, room }, callback) => {
     const { error, user } = addUser({ id: socket.id, username, room });
+    console.log("socketID = " + socket.id);
     if (error) {
       return callback(error);
     }

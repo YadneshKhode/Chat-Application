@@ -1,38 +1,46 @@
 import React from "react";
 import "./sidebar.style.css";
+import DonutLargeIcon from "@material-ui/icons/DonutLarge";
 import { Avatar, IconButton } from "@material-ui/core";
-// import ChatIcon from "@material-ui/icons/Chat";
-// import MoreVertIcon from "@material-ui/icons/MoreVert";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
+import ChatIcon from "@material-ui/icons/Chat";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import { SearchOutlined } from "@material-ui/icons";
 import SidebarChat from "../sidebar-chat/sidebarchat.component";
-const Sidebar = () => {
+import { connect } from "react-redux";
+const Sidebar = (props) => {
+  const { photo } = props;
   return (
     <div className="sidebar">
       <div className="sidebar__header">
-        <Avatar src="https://lh3.googleusercontent.com/ogw/ADGmqu9aFRQkhjsIHTP2JL8BIF3XnSl-iYxhU3buS1PzdQ=s32-c-mo" />
+        <Avatar src={photo} />
         <div className="sidebar__headerRight">
           <IconButton>
-            <AddCircleIcon />
+            <DonutLargeIcon />
           </IconButton>
-          {/* <IconButton>
+          <IconButton>
             <ChatIcon />
-          </IconButton> */}
-          {/* <IconButton>
+          </IconButton>
+          <IconButton>
             <MoreVertIcon />
-          </IconButton> */}
+          </IconButton>
         </div>
       </div>
-      {/* <div className="sidebar__search">
+      <div className="sidebar__search">
         <div className="sidebar__searchContainer">
           <SearchOutlined />
           <input placeholder="Search or start new chat" type="text" />
         </div>
-      </div> */}
+      </div>
       <div className="sidebar__chats">
         <SidebarChat />
       </div>
     </div>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    photo: state.user.user.photo,
+  };
+};
 
-export default Sidebar;
+export default connect(mapStateToProps)(Sidebar);

@@ -10,6 +10,10 @@ import ChatMessage from "./chat-message.component";
 import CancelRoundedIcon from "@material-ui/icons/CancelRounded";
 import queryString from "query-string";
 import InfoBar from "../infoBar/infobar.component";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { Link } from "react-router-dom";
+import { logout } from "../../redux/user/user.action";
+import { auth } from "../../firebase";
 import {
   addUser,
   addRoom,
@@ -26,6 +30,7 @@ const Chat = React.memo((props) => {
     addMessage,
     addMessToArr,
     clearChatState,
+    logout,
   } = props;
   const [username, setName] = useState("");
   const [room, setRoom] = useState("");
@@ -51,8 +56,7 @@ const Chat = React.memo((props) => {
     });
 
     return () => {
-      console.log("khallas");
-      socket.emit("disconnect");
+      // socket.emit("disconnect");
       socket.off(); // turn off the current connection instance.
     };
   }, [ENDPOINT, location.search, addRoomName, addUserName]);
@@ -74,9 +78,12 @@ const Chat = React.memo((props) => {
         setMessage("");
         addMessage("");
       });
-
-      console.log("message = " + message);
     }
+  };
+
+  const signMeOut = () => {
+    auth.signOut();
+    logout();
   };
 
   return (
@@ -87,10 +94,18 @@ const Chat = React.memo((props) => {
         <div className="chat__headerRight">
           <IconButton>
             <div className="tooltip">
-              <a href="/" className="exit__button">
+              <Link to="/room" className="exit__button">
                 <CancelRoundedIcon />
-              </a>
+              </Link>
               <span className="tooltiptext">Exit Chat Room</span>
+            </div>
+          </IconButton>
+          <IconButton>
+            <div className="tooltip">
+              <Link to="/" className="logout__button" onClick={signMeOut}>
+                <span className="tooltiptext">Log out</span>
+                <ExitToAppIcon />
+              </Link>
             </div>
           </IconButton>
           <IconButton>
@@ -99,14 +114,11 @@ const Chat = React.memo((props) => {
               <span className="tooltiptext">Attach File</span>
             </div>
           </IconButton>
-          {/* <IconButton>
-            <MoreVertIcon />
-          </IconButton> */}
         </div>
       </div>
 
       <div className="chat__body">
-          <ChatMessage username={username} messages={messages} />
+        <ChatMessage username={username} messages={messages} />
       </div>
       <div className="chat__footer">
         <IconButton>
@@ -132,6 +144,7 @@ const mapDispatchToProps = (dispatch) => {
     addMessage: (message) => dispatch(addCurrentMessage(message)),
     addMessToArr: (message) => dispatch(addToMessages(message)),
     clearChatState: () => dispatch(clearState()),
+    logout: () => dispatch(logout()),
   };
 };
 

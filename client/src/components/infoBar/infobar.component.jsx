@@ -1,5 +1,4 @@
 import React from "react";
-// import onlineIcon from "../../icons/onlineIcon.png";
 import { connect } from "react-redux";
 
 const InfoBar = (props) => {
@@ -13,9 +12,8 @@ const InfoBar = (props) => {
     <div className="chat__headerInfo">
       <h3>
         {room} &nbsp;
-        {/* <img className="onlineIcon" src={onlineIcon} alt="online icon " /> */}
       </h3>
-      <p>{lastCreatedAt}</p>
+      <p>Last seen at {lastCreatedAt}</p>
     </div>
   );
 };

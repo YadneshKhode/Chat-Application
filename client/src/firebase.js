@@ -1,9 +1,17 @@
+import firebase from "firebase";
 const firebaseConfig = {
-    apiKey: "AIzaSyCDx2oxyjVukUbycH9aD9x5Cqi6wfShiAE",
-    authDomain: "whatsapp-messenger-9803a.firebaseapp.com",
-    projectId: "whatsapp-messenger-9803a",
-    storageBucket: "whatsapp-messenger-9803a.appspot.com",
-    messagingSenderId: "156109389619",
-    appId: "1:156109389619:web:9366c79cd8e76be1804846",
-    measurementId: "G-M8S6GNK726"
-  };
+  apiKey: "AIzaSyBq6aBUf_3EnNoiGHxYdc5yoniFqQ1NMmc",
+  authDomain: "chat-application-1ad88.firebaseapp.com",
+  projectId: "chat-application-1ad88",
+  storageBucket: "chat-application-1ad88.appspot.com",
+  messagingSenderId: "410508817932",
+  appId: "1:410508817932:web:35e04662df4676793aa029",
+  measurementId: "G-YCHSK7SQ8L",
+};
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+const db = firebaseApp.firestore();
+const auth = firebase.auth();
+const provider = new firebase.auth.GoogleAuthProvider();
+
+export { auth, provider };
+export default db;
