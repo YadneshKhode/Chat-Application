@@ -1,5 +1,4 @@
 import React from "react";
-import "./sidebar.style.css";
 import { Avatar } from "@material-ui/core";
 import SidebarChat from "../sidebar-chat/sidebarchat.component";
 import { connect } from "react-redux";

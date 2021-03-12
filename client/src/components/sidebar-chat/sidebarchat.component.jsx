@@ -1,6 +1,5 @@
 import { Avatar } from "@material-ui/core";
 import React from "react";
-import "./sidebarchat.style.css";
 
 const SidebarChat = (props) => {
   const { username, displayPhoto } = props;

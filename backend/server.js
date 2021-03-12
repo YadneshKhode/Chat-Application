@@ -29,7 +29,7 @@ io.on("connect", (socket) => {
     const { error, user } = addUser({
       id: socket.id,
       username,
-      room,
+      room, 
       displayPhoto,
     });
     console.log("OBJ USERR" + displayPhoto);

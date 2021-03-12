@@ -1,9 +1,7 @@
-import { Avatar, IconButton } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import { useLocation } from "react-router-dom";
-import { AttachFile, InsertEmoticon } from "@material-ui/icons";
-import MicIcon from "@material-ui/icons/Mic";
 import Input from "../input/input.component";
 import ChatMessage from "./chat-message.component";
 import CancelRoundedIcon from "@material-ui/icons/CancelRounded";
@@ -13,6 +11,8 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { Link } from "react-router-dom";
 import { logout } from "../../redux/user/user.action";
 import { auth } from "../../firebase";
+import GroupIcon from "@material-ui/icons/Group";
+import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 import {
   addUser,
   addRoom,
@@ -22,6 +22,7 @@ import {
   addToUsers,
 } from "../../redux/chats/chats.action";
 import { connect } from "react-redux";
+import SidebarChat from "../sidebar-chat/sidebarchat.component";
 
 let socket;
 
@@ -35,11 +36,13 @@ const Chat = React.memo((props) => {
     logout,
     addToUsers,
     displayPhoto,
+    usersList,
   } = props;
   const [username, setName] = useState("");
   const [room, setRoom] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const [toggle, setToggle] = useState([]);
   const ENDPOINT = "http://localhost:5000";
   const location = useLocation();
 
@@ -98,12 +101,28 @@ const Chat = React.memo((props) => {
     auth.signOut();
   };
 
+  const toggleMe = () => {
+    if (toggle) {
+      setToggle(false);
+    } else {
+      setToggle(true);
+    }
+  };
   return (
     <div className="chat">
       <div className="chat__header">
-        <Avatar />
+        <GroupIcon className="groupIcon" />
         <InfoBar room={room} />
         <div className="chat__headerRight">
+          <IconButton>
+            <div className="tooltip">
+              <FormatListBulletedIcon
+                className="white memberIcon"
+                onClick={toggleMe}
+              />
+              <span className="tooltiptext">Group Members</span>
+            </div>
+          </IconButton>
           <IconButton>
             <div className="tooltip">
               <Link to="/room" className="exit__button">
@@ -120,17 +139,33 @@ const Chat = React.memo((props) => {
               </Link>
             </div>
           </IconButton>
-          <IconButton>
-            <div className="tooltip">
-              <AttachFile className="white" />
-              <span className="tooltiptext">Attach File</span>
-            </div>
-          </IconButton>
         </div>
       </div>
 
       <div className="chat__body">
-        <ChatMessage username={username} messages={messages} />
+        {toggle ? (
+          <ChatMessage username={username} messages={messages} />
+        ) : (
+          <>
+            <div className="sidebar__search">
+              <h4 className="userList">Users currently online</h4>
+            </div>
+            <div className="sidebar__chats">
+              {usersList ? (
+                usersList.map((user, i) => (
+                  <div key={i}>
+                    <SidebarChat
+                      username={user.username}
+                      displayPhoto={user.displayPhoto}
+                    />
+                  </div>
+                ))
+              ) : (
+                <SidebarChat />
+              )}
+            </div>
+          </>
+        )}
       </div>
       <div className="chat__footer">
         <Input
@@ -158,6 +193,9 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     displayPhoto: state.user.user.photo,
+    photo: state.user.user.photo,
+    displayName: state.user.user.displayName,
+    usersList: state.chat.usersList,
   };
 };
 
