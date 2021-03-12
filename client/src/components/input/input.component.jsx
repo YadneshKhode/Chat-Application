@@ -14,7 +14,7 @@ const Input = React.memo(({ message, setMessage, sendMessage }) => {
         />
       </form>
       <IconButton onClick={(e) => sendMessage(e)}>
-        <SendIcon />
+        <SendIcon className="white" />
       </IconButton>
     </>
   );

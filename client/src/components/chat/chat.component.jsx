@@ -2,7 +2,6 @@ import { Avatar, IconButton } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import { useLocation } from "react-router-dom";
-import "./chat.style.css";
 import { AttachFile, InsertEmoticon } from "@material-ui/icons";
 import MicIcon from "@material-ui/icons/Mic";
 import Input from "../input/input.component";
@@ -20,9 +19,12 @@ import {
   addCurrentMessage,
   addToMessages,
   clearState,
+  addToUsers,
 } from "../../redux/chats/chats.action";
 import { connect } from "react-redux";
+
 let socket;
+
 const Chat = React.memo((props) => {
   const {
     addUserName,
@@ -31,6 +33,8 @@ const Chat = React.memo((props) => {
     addMessToArr,
     clearChatState,
     logout,
+    addToUsers,
+    displayPhoto,
   } = props;
   const [username, setName] = useState("");
   const [room, setRoom] = useState("");
@@ -38,9 +42,11 @@ const Chat = React.memo((props) => {
   const [messages, setMessages] = useState([]);
   const ENDPOINT = "http://localhost:5000";
   const location = useLocation();
+
   useEffect(() => {
     clearChatState();
   }, [clearChatState]);
+
   useEffect(() => {
     const { username, room } = queryString.parse(location.search);
     socket = io(ENDPOINT);
@@ -48,18 +54,16 @@ const Chat = React.memo((props) => {
     addUserName(username);
     setRoom(room);
     addRoomName(room);
-
-    socket.emit("join", { username, room }, (error) => {
+    socket.emit("join", { username, room, displayPhoto }, (error) => {
       if (error) {
         alert(error);
       }
     });
 
     return () => {
-      // socket.emit("disconnect");
-      socket.off(); // turn off the current connection instance.
+      socket.off("join"); // turn off the current connection instance.
     };
-  }, [ENDPOINT, location.search, addRoomName, addUserName]);
+  }, [ENDPOINT, location.search, addRoomName, addUserName, displayPhoto]);
 
   useEffect(() => {
     socket.on("message", (fulldata) => {
@@ -67,9 +71,17 @@ const Chat = React.memo((props) => {
       addMessToArr(fulldata);
     });
     return () => {
-      socket.off();
+      socket.off("message");
     };
-  }, [messages, addMessToArr]);
+  }, [messages, addMessToArr, addToUsers]);
+  useEffect(() => {
+    socket.on("roomData", ({ users }) => {
+      addToUsers(users);
+    });
+    return () => {
+      socket.off("roomData");
+    };
+  });
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -82,8 +94,8 @@ const Chat = React.memo((props) => {
   };
 
   const signMeOut = () => {
-    auth.signOut();
     logout();
+    auth.signOut();
   };
 
   return (
@@ -95,7 +107,7 @@ const Chat = React.memo((props) => {
           <IconButton>
             <div className="tooltip">
               <Link to="/room" className="exit__button">
-                <CancelRoundedIcon />
+                <CancelRoundedIcon className="white" />
               </Link>
               <span className="tooltiptext">Exit Chat Room</span>
             </div>
@@ -104,13 +116,13 @@ const Chat = React.memo((props) => {
             <div className="tooltip">
               <Link to="/" className="logout__button" onClick={signMeOut}>
                 <span className="tooltiptext">Log out</span>
-                <ExitToAppIcon />
+                <ExitToAppIcon className="white" />
               </Link>
             </div>
           </IconButton>
           <IconButton>
             <div className="tooltip">
-              <AttachFile />
+              <AttachFile className="white" />
               <span className="tooltiptext">Attach File</span>
             </div>
           </IconButton>
@@ -121,17 +133,11 @@ const Chat = React.memo((props) => {
         <ChatMessage username={username} messages={messages} />
       </div>
       <div className="chat__footer">
-        <IconButton>
-          <InsertEmoticon />
-        </IconButton>
         <Input
           message={message}
           setMessage={setMessage}
           sendMessage={sendMessage}
         />
-        <IconButton>
-          <MicIcon />
-        </IconButton>
       </div>
     </div>
   );
@@ -145,7 +151,14 @@ const mapDispatchToProps = (dispatch) => {
     addMessToArr: (message) => dispatch(addToMessages(message)),
     clearChatState: () => dispatch(clearState()),
     logout: () => dispatch(logout()),
+    addToUsers: (name) => dispatch(addToUsers(name)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(Chat);
+const mapStateToProps = (state) => {
+  return {
+    displayPhoto: state.user.user.photo,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chat);

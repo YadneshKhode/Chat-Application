@@ -1,30 +1,18 @@
 import { Avatar } from "@material-ui/core";
 import React from "react";
 import "./sidebarchat.style.css";
-import { connect } from "react-redux";
 
 const SidebarChat = (props) => {
-  const { room, messages } = props;
-  let lastMessage;
-  messages.length > 0
-    ? (lastMessage = messages[messages.length - 1].message)
-    : (lastMessage = "");
+  const { username, displayPhoto } = props;
+
   return (
     <div className="sidebarChat">
-      <Avatar />
+      <Avatar src={displayPhoto} alt="profile-pic" />
       <div className="sidebar__chatInfo">
-        <h2>{room}</h2>
-        <p>{lastMessage}</p>
+        <h2>{username}</h2>
       </div>
     </div>
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    room: state.chat.room,
-    messages: state.chat.messages,
-  };
-};
-
-export default connect(mapStateToProps)(SidebarChat);
+export default SidebarChat;

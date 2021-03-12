@@ -10,10 +10,10 @@ const InfoBar = (props) => {
 
   return (
     <div className="chat__headerInfo">
-      <h3>
+      <h3 className="white">
         {room} &nbsp;
       </h3>
-      <p>Last seen at {lastCreatedAt}</p>
+      <p className="white">Last message at {lastCreatedAt}</p>
     </div>
   );
 };

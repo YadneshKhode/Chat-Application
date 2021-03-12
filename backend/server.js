@@ -19,18 +19,20 @@ const {
   getUser,
   getUsersInRoom,
 } = require("./utils/users");
-const {
-  generateMessage,
-  generateLocationMessage,
-} = require("./utils/messages");
+const { generateMessage } = require("./utils/messages");
 app.use(express.json());
 app.use(express.static(publicDirectoryPath));
 app.use(cors());
 
 io.on("connect", (socket) => {
-  socket.on("join", ({ username, room }, callback) => {
-    const { error, user } = addUser({ id: socket.id, username, room });
-    console.log("socketID = " + socket.id);
+  socket.on("join", ({ username, room, displayPhoto }, callback) => {
+    const { error, user } = addUser({
+      id: socket.id,
+      username,
+      room,
+      displayPhoto,
+    });
+    console.log("OBJ USERR" + displayPhoto);
     if (error) {
       return callback(error);
     }
@@ -44,7 +46,9 @@ io.on("connect", (socket) => {
         `Hello ${user.username}, welcome to the room ${user.room}`
       )
     );
-
+    io.to(user.room).emit("roomData", {
+      users: getUsersInRoom(user.room),
+    });
     socket.broadcast
       .to(user.room)
       .emit(
@@ -52,7 +56,6 @@ io.on("connect", (socket) => {
         generateMessage("Admin", `${user.username} has joined!`)
       );
     io.to(user.room).emit("roomData", {
-      room: user.room,
       users: getUsersInRoom(user.room),
     });
 
@@ -66,29 +69,15 @@ io.on("connect", (socket) => {
     callback();
   });
 
-  socket.on("sendLocation", (coords, callback) => {
-    const user = getUser(socket.id);
-
-    io.to(user.room).emit(
-      "locationMessage",
-      generateLocationMessage(
-        user.username,
-        `https://google.com/maps?q=${coords.latitude},${coords.longitude}`
-      )
-    );
-    callback();
-  });
-
   socket.on("disconnect", () => {
     const user = removeUser(socket.id);
-
+    console.log(getUsersInRoom(user.room));
     if (user) {
       io.to(user.room).emit(
         "message",
         generateMessage("Admin", `${user.username} has left !`)
       );
       io.to(user.room).emit("roomData", {
-        room: user.room,
         users: getUsersInRoom(user.room),
       });
     }

@@ -16,23 +16,7 @@ const generateMessage = (user, message) => {
     createdAt: date,
   };
 };
-const generateLocationMessage = (user, url) => {
-  let date = new Date().getDate;
-  let month = new Date().getMonth;
-  let hours = new Date().getHours;
-  let minutes = new Date().getMinutes;
-
-  const time = hours + minutes;
-
-  console.log(time);
-  return {
-    user,
-    url,
-    createdAt: time,
-  };
-};
 
 module.exports = {
   generateMessage,
-  generateLocationMessage,
 };

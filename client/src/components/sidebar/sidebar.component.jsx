@@ -1,38 +1,34 @@
 import React from "react";
 import "./sidebar.style.css";
-import DonutLargeIcon from "@material-ui/icons/DonutLarge";
-import { Avatar, IconButton } from "@material-ui/core";
-import ChatIcon from "@material-ui/icons/Chat";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import { SearchOutlined } from "@material-ui/icons";
+import { Avatar } from "@material-ui/core";
 import SidebarChat from "../sidebar-chat/sidebarchat.component";
 import { connect } from "react-redux";
 const Sidebar = (props) => {
-  const { photo } = props;
+  const { photo, displayName, usersList } = props;
   return (
     <div className="sidebar">
       <div className="sidebar__header">
-        <Avatar src={photo} />
+        <Avatar src={photo} alt="profile-pic" />
         <div className="sidebar__headerRight">
-          <IconButton>
-            <DonutLargeIcon />
-          </IconButton>
-          <IconButton>
-            <ChatIcon />
-          </IconButton>
-          <IconButton>
-            <MoreVertIcon />
-          </IconButton>
+          <h1 className="displayName">{displayName}</h1>
         </div>
       </div>
       <div className="sidebar__search">
-        <div className="sidebar__searchContainer">
-          <SearchOutlined />
-          <input placeholder="Search or start new chat" type="text" />
-        </div>
+        <h4 className="userList">Users currently online</h4>
       </div>
       <div className="sidebar__chats">
-        <SidebarChat />
+        {usersList ? (
+          usersList.map((user, i) => (
+            <div key={i}>
+              <SidebarChat
+                username={user.username}
+                displayPhoto={user.displayPhoto}
+              />
+            </div>
+          ))
+        ) : (
+          <SidebarChat />
+        )}
       </div>
     </div>
   );
@@ -40,6 +36,8 @@ const Sidebar = (props) => {
 const mapStateToProps = (state) => {
   return {
     photo: state.user.user.photo,
+    displayName: state.user.user.displayName,
+    usersList: state.chat.usersList,
   };
 };
 

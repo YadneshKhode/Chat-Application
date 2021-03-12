@@ -1,6 +1,6 @@
 const users = [];
 
-const addUser = ({ id, username, room }) => {
+const addUser = ({ id, username, room, displayPhoto }) => {
   //clean data
   username = username.trim().toLowerCase();
   room = room.trim().toLowerCase();
@@ -22,7 +22,7 @@ const addUser = ({ id, username, room }) => {
     };
   }
   //Store
-  const user = { id, username, room };
+  const user = { id, username, room, displayPhoto };
   users.push(user);
   return { user };
 };

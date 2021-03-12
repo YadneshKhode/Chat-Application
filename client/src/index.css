@@ -16,7 +16,6 @@ input {
 
 body {
   line-height: 1.4;
-  color: #333333;
   font-family: Helvetica, Arial, sans-serif;
 }
 
@@ -116,6 +115,7 @@ body {
   display: flex;
   flex-direction: column;
   flex: 0.65;
+  background-color: #358fef;
 }
 
 .chat__header {
@@ -131,9 +131,6 @@ body {
 .chat__headerInfo > h3 {
   margin-bottom: 3px;
   font-weight: 500;
-}
-.chat__headerInfo > p {
-  color: gray;
 }
 .chat__body {
   flex: 1;
@@ -183,6 +180,8 @@ body {
   border-radius: 30px;
   padding: 10px;
   border: none;
+  outline: none;
+  margin-left:10px;
 }
 .chat__footer > form > button {
   display: none;
@@ -220,8 +219,9 @@ body {
 .sidebar__header {
   display: flex;
   justify-content: space-between;
-  padding: 23px;
+  padding: 27px;
   border-right: 1px solid lightgray;
+  background-color: #358fef;
 }
 .sidebar__headerRight {
   display: flex;
@@ -231,14 +231,14 @@ body {
 .sidebar__headerRight > .MuiSvgIcon-root {
   margin-right: 2vw;
   font-size: 24px !important;
-  color: grey;
+  color: ;
 }
 .sidebar__search {
   display: flex;
   align-items: center;
   background-color: #f6f6f6;
-  height: 39px;
-  padding: 10px;
+  height: 65px;
+  padding: 12px;
 }
 .sidebar__searchContainer {
   display: flex;
@@ -249,13 +249,13 @@ body {
   border-radius: 20px;
 }
 .sidebar__searchContainer > .MuiSvgIcon-root {
-  color: gray;
   padding-left: 5px;
 }
 .sidebar__searchContainer > input {
   border: none;
   outline-width: 0;
   margin-left: 10px;
+  width: 100%;
 }
 .sidebar__chats {
   flex: 1;
@@ -300,17 +300,11 @@ ToolTip CSS
   padding: 12px;
   outline: none;
 }
-.centered-form__label {
-  display: block;
-  font-size: 14px;
-  margin-bottom: 8px;
-  color: #777;
-}
 
 .centered-form__button {
   cursor: pointer;
   padding: 12px;
-  background: #7c5cbf;
+  background: #358fef;
   border: none;
   color: white;
   font-size: 16px;
@@ -329,7 +323,7 @@ ToolTip CSS
 /* Join Page Styles */
 
 .centered-form {
-  background: #333744;
+  background: cornflowerblue;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -341,7 +335,7 @@ ToolTip CSS
   box-shadow: 0px 0px 17px 1px #1d1f26;
   background: #f7f7fa;
   padding: 24px;
-  width: 250px;
+  width: 350px;
 }
 
 .centered-form button {
@@ -355,4 +349,18 @@ ToolTip CSS
 .centered-form__title {
   margin-bottom: 16px;
   width: inherit;
+}
+
+.white{
+  color:white;
+}
+.userList{
+margin:auto;
+font-weight:500;
+text-transform: capitalize;
+}
+.displayName{
+  color:white;
+  font-size:20px;
+  margin-top:10px;
 }

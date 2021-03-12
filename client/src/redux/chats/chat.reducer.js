@@ -5,7 +5,7 @@ const initialState = {
   room: "",
   message: "",
   messages: [],
-  users: [],
+  usersList: [],
 };
 
 const chatReducer = (state = initialState, action) => {
@@ -36,6 +36,11 @@ const chatReducer = (state = initialState, action) => {
         room: "",
         message: "",
         messages: [],
+      };
+    case ChatActionTypes.ADD_IN_USERS:
+      return {
+        ...state,
+        usersList: action.payload,
       };
     default:
       return state;

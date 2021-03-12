@@ -23,14 +23,13 @@ function App(props) {
         logout();
       }
     });
-  }, []);
+  }, [login, logout]);
 
   return (
     <div>
       <Router>
         <Route exact path="/room" component={UserDetails} />
         <Route path="/chat" component={Chatpage} />
-        {/* <Route exact path="/" component={LoginPage} /> */}
         <Route
           exact
           path="/"
@@ -54,6 +53,7 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
 
+//Application tree
 // Chatpage
 // 	Sidebar
 // 		SidebarChat

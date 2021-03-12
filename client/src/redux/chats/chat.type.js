@@ -4,5 +4,6 @@ const ChatActionTypes = {
   ADD_CURRENT_MESSAGE: "ADD_CURRENT_MESSAGE",
   ADD_TO_MESSAGES: "ADD_TO_MESSAGES",
   CLEAR_STATE: "CLEAR_STATE",
+  ADD_IN_USERS: "ADD_IN_USERS",
 };
 export default ChatActionTypes;

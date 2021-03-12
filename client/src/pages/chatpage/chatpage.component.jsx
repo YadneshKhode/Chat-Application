@@ -1,6 +1,5 @@
 import Chat from "../../components/chat/chat.component";
 import Sidebar from "../../components/sidebar/sidebar.component";
-
 import React from "react";
 
 const Chatpage = () => {
