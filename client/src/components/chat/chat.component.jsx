@@ -46,17 +46,28 @@ const Chat = React.memo((props) => {
   const ENDPOINT = "http://localhost:5000";
   const location = useLocation();
 
+  // state is cleared when component is loaded first time or removed
   useEffect(() => {
     clearChatState();
   }, [clearChatState]);
 
   useEffect(() => {
+    //getting values from URL and storing to redux state
     const { username, room } = queryString.parse(location.search);
+    //passing domain to "io"
     socket = io(ENDPOINT);
+    //setting state
     setName(username);
+    //dispatching action
     addUserName(username);
+    //setting state
     setRoom(room);
+    //dispatching action
     addRoomName(room);
+
+    // Transmitting the object " { username, room, displayPhoto }" as soon as someone joins the room
+    //The join keyword is reserved in socket.io and is executed whenever a new connection is made
+    //"(error)=>" is a callback function triggered from the server ( server calls this function )
     socket.emit("join", { username, room, displayPhoto }, (error) => {
       if (error) {
         alert(error);
@@ -68,9 +79,12 @@ const Chat = React.memo((props) => {
     };
   }, [ENDPOINT, location.search, addRoomName, addUserName, displayPhoto]);
 
+  //Receiver for the message emitted by the server
   useEffect(() => {
     socket.on("message", (fulldata) => {
+      //adding data to existing array of messages
       setMessages([...messages, fulldata]);
+      //dispatching action to update redux state of messages
       addMessToArr(fulldata);
     });
     return () => {
@@ -78,30 +92,37 @@ const Chat = React.memo((props) => {
     };
   }, [messages, addMessToArr, addToUsers]);
   useEffect(() => {
+    //Receiver for room-data sent from server this function is executed whenever a new connection joins the room or leaves the room
     socket.on("roomData", ({ users }) => {
+      //dispatching action to updaqte redux state
       addToUsers(users);
     });
     return () => {
       socket.off("roomData");
     };
   });
-
+  //Transmitter for sending messages to server
   const sendMessage = (e) => {
     e.preventDefault();
     if (message) {
       socket.emit("sendMessage", message, () => {
+        //setting state
         setMessage("");
+        //dispatching action
         addMessage("");
       });
     }
   };
 
   const signMeOut = () => {
+    //dispatching action to clear user object in redux
     logout();
+    //Method provided by firebase to log out the user
     auth.signOut();
   };
 
   const toggleMe = () => {
+    //used to show / hide list of current active users in mobile view 
     if (toggle) {
       setToggle(false);
     } else {

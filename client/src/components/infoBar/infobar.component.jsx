@@ -3,7 +3,9 @@ import { connect } from "react-redux";
 
 const InfoBar = (props) => {
   const { room, messages } = props;
+
   let lastCreatedAt;
+  //Taking timestamp of latest message and displaying it
   messages.length > 0
     ? (lastCreatedAt = messages[messages.length - 1].createdAt)
     : (lastCreatedAt = "");

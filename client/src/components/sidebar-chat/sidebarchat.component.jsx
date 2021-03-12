@@ -1,6 +1,7 @@
 import { Avatar } from "@material-ui/core";
 import React from "react";
 
+//called for each user with different props
 const SidebarChat = (props) => {
   const { username, displayPhoto } = props;
 

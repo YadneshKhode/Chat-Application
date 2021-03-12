@@ -53,7 +53,7 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
 
-//Application tree
+//Chat - Application tree ( not 100% complete )
 // Chatpage
 // 	Sidebar
 // 		SidebarChat

@@ -2,6 +2,8 @@ import React from "react";
 import { Avatar } from "@material-ui/core";
 import SidebarChat from "../sidebar-chat/sidebarchat.component";
 import { connect } from "react-redux";
+
+//displays the sidebar with users online and current user's name and profile picture
 const Sidebar = (props) => {
   const { photo, displayName, usersList } = props;
   return (
