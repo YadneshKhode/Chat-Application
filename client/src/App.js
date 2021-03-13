@@ -1,7 +1,7 @@
 import "./App.css";
 import Chatpage from "./pages/chatpage/chatpage.component";
 import { useEffect } from "react";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect,withRouter } from "react-router-dom";
 import UserDetails from "./pages/userDetailPage/userDetailPage.component";
 import LoginPage from "./pages/loginpage/login.component";
 import { connect } from "react-redux";
@@ -28,7 +28,7 @@ function App(props) {
   return (
     <div>
       <Router>
-        <Route exact path="/room" component={UserDetails} />
+        <Route path="/room" component={UserDetails} />
         <Route path="/chat" component={Chatpage} />
         <Route
           exact
@@ -51,7 +51,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
 
 //Chat - Application tree ( not 100% complete )
 // Chatpage

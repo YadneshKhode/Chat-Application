@@ -43,7 +43,8 @@ const Chat = React.memo((props) => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [toggle, setToggle] = useState([]);
-  const ENDPOINT = "http://localhost:5000";
+  // const ENDPOINT = "http://localhost:5000";
+  const ENDPOINT = "https://yadnesh-chat-application.herokuapp.com/";
   const location = useLocation();
 
   // state is cleared when component is loaded first time or removed
@@ -122,7 +123,7 @@ const Chat = React.memo((props) => {
   };
 
   const toggleMe = () => {
-    //used to show / hide list of current active users in mobile view 
+    //used to show / hide list of current active users in mobile view
     if (toggle) {
       setToggle(false);
     } else {
