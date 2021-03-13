@@ -1,5 +1,5 @@
 import React from "react";
-import Message from "./message.component";
+import Message from "./message.component"
 import { connect } from "react-redux";
 
 const ChatMessage = React.memo(({ username, messages }) => {
