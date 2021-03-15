@@ -1,12 +1,20 @@
 import "./App.css";
 import Chatpage from "./pages/chatpage/chatpage.component";
 import { useEffect } from "react";
-import { BrowserRouter as Router, Route, Redirect,withRouter } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  withRouter,
+  Switch,
+} from "react-router-dom";
 import UserDetails from "./pages/userDetailPage/userDetailPage.component";
 import LoginPage from "./pages/loginpage/login.component";
 import { connect } from "react-redux";
 import { auth } from "./firebase";
 import { login, logout } from "./redux/user/user.action";
+import ErrorPage from "./pages/errorPage";
+
 function App(props) {
   const { user, login, logout } = props;
 
@@ -28,13 +36,16 @@ function App(props) {
   return (
     <div>
       <Router>
-        <Route path="/room" component={UserDetails} />
-        <Route path="/chat" component={Chatpage} />
-        <Route
-          exact
-          path="/"
-          render={() => (user ? <Redirect to="/room" /> : <LoginPage />)}
-        />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => (user ? <Redirect to="/room" /> : <LoginPage />)}
+          />
+          <Route exact path="/room" component={UserDetails} />
+          <Route exact path="/chat" component={Chatpage} />
+          <Route path="*" component={ErrorPage} />
+        </Switch>
       </Router>
     </div>
   );

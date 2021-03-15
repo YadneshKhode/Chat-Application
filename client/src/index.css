@@ -141,7 +141,7 @@ body {
 .chat__message {
   position: relative;
   font-size: 16px;
-  padding: 30px 10px 12px 10px;
+  padding: 10px 10px 12px 10px;
   border-radius: 10px;
   background-color: #ffffff;
   margin-bottom: 30px;
@@ -151,7 +151,7 @@ body {
 .chat__receiver {
   margin-left: auto;
   background-color: #dcf8c6;
-  min-width: 140px;
+  width: fit-content;
   padding-bottom: 10px;
 }
 .chatContainer {
@@ -162,14 +162,13 @@ body {
 .chat__timestamp {
   margin-left: 10px;
   font-size: x-small;
-  padding-top: 4px;
+  padding-top: 8%;
 }
 .chat__mess {
   flex: 1;
 }
 .chat__name {
-  position: absolute;
-  top: 1px;
+  display: block;
   font-weight: 800;
   font-size: 15px;
 }
@@ -254,7 +253,7 @@ ToolTip CSS
 }
 
 .centered-form__button:hover {
-  background: #6b47b8;
+  background: #0375f0;
 }
 
 .centered-form__button:disabled {
@@ -477,4 +476,25 @@ ToolTip CSS
   .white {
     font-size: 12px;
   }
+}
+.errorPage {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.errorPage__link > button {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-decoration: none;
+  background-color: #6c63ff;
+  color: white;
+  border-radius: 20px;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  border-color: black;
 }

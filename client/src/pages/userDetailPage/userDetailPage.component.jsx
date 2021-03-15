@@ -2,9 +2,16 @@ import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import "../../index.css";
 import { connect } from "react-redux";
+import { addUser, addRoom } from "../../redux/chats/chats.action";
+
 const UserDetails = (props) => {
-  const { username } = props;
+  const { username, addUserName, addRoomName } = props;
   const [room, setRoom] = useState("");
+  const saveUserNameAndRoom = () => {
+    addUserName(username);
+    addRoomName(room);
+  };
+
   return (
     <div className="centered-form">
       <div className="centered-form__box">
@@ -17,12 +24,19 @@ const UserDetails = (props) => {
             onChange={(event) => setRoom(event.target.value)}
             required
           />
-
-          <Link
+          {/* <Link
             onClick={(e) => (!username || !room ? e.preventDefault() : null)}
             to={`/chat?username=${username}&room=${room}`}
+          > */}
+          <Link
+            onClick={(e) => (!username || !room ? e.preventDefault() : null)}
+            to="/chat"
           >
-            <button className="centered-form__button" type="submit">
+            <button
+              className="centered-form__button"
+              type="submit"
+              onClick={saveUserNameAndRoom}
+            >
               Join
             </button>
           </Link>
@@ -36,4 +50,10 @@ const mapStateToProps = (state) => {
     username: state.user.user.displayName,
   };
 };
-export default connect(mapStateToProps)(UserDetails);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addUserName: (name) => dispatch(addUser(name)),
+    addRoomName: (room) => dispatch(addRoom(room)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(UserDetails);
