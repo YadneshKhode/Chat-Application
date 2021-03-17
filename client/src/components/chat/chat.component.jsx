@@ -37,7 +37,7 @@ const Chat = React.memo((props) => {
     username,
     room,
   } = props;
-  
+
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [toggle, setToggle] = useState([]);
@@ -68,32 +68,20 @@ const Chat = React.memo((props) => {
     // setRoom(roomName);
     // //dispatching action
     // addRoomName(room);
-  
+
     // Transmitting the object " { username, room, displayPhoto,e mail }" as soon as someone joins the room
     //The join keyword is reserved in socket.io and is executed whenever a new connection is made
     //"(error)=>" is a callback function triggered from the server ( server calls this function )
-    socket.emit(
-      "join",
-      { username, room, displayPhoto, email },
-      (error) => {
-        if (error) {
-          alert(error);
-        }
+    socket.emit("join", { username, room, displayPhoto, email }, (error) => {
+      if (error) {
+        alert(error);
       }
-    );
+    });
 
     return () => {
       socket.off("join"); // turn off the current connection instance.
     };
-  }, [
-    ENDPOINT,
-    addRoomName,
-    room,
-    username,
-    addUserName,
-    displayPhoto,
-    email,
-  ]);
+  }, [ENDPOINT, addRoomName, room, username, addUserName, displayPhoto, email]);
 
   //Receiver for the message emitted by the server
   useEffect(() => {
@@ -132,11 +120,10 @@ const Chat = React.memo((props) => {
 
   const signMeOut = () => {
     //dispatching action to clear user object in redux
-    clearChatState();
-
     logout();
-    //Method provided by firebase to log out the user
+    clearChatState();
     auth.signOut();
+    //Method provided by firebase to log out the user
   };
 
   const toggleMe = () => {
@@ -147,7 +134,9 @@ const Chat = React.memo((props) => {
       setToggle(true);
     }
   };
-  const emitDisconnect = () => socket.emit("leftRoom");
+  // const leaveRoom = () => {
+  //   socket.emit("leftRoom", room, username);
+  // };
   return (
     <div className="chat">
       <div className="chat__header">
@@ -165,8 +154,8 @@ const Chat = React.memo((props) => {
           </IconButton>
           <IconButton>
             <div className="tooltip">
-              <Link to="/room" className="exit__button">
-                <CancelRoundedIcon className="white" onClick={emitDisconnect} />
+              <Link to="/room"  className="exit__button">
+                <CancelRoundedIcon className="white" />
               </Link>
               <span className="tooltiptext">Exit Chat Room</span>
             </div>

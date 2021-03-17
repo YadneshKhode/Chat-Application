@@ -15,7 +15,7 @@ const Sidebar = (props) => {
         </div>
       </div>
       <div className="sidebar__search">
-        <h4 className="userList">Users currently online</h4>
+        <h4 className="userList">Group Members</h4>
       </div>
       <div className="sidebar__chats">
         {usersList ? (
