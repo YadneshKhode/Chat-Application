@@ -1,5 +1,5 @@
 import { IconButton } from "@material-ui/core";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
 import Input from "../input/input.component";
 import ChatMessage from "./chat-message.component";
@@ -11,6 +11,8 @@ import { logout } from "../../redux/user/user.action";
 import { auth } from "../../firebase";
 import GroupIcon from "@material-ui/icons/Group";
 import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
+import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
+import displayRazorpay from "../../payment-gateway-razorpay/razorpay.js";
 import {
   addCurrentMessage,
   addToMessages,
@@ -41,33 +43,19 @@ const Chat = React.memo((props) => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [toggle, setToggle] = useState([]);
-  // const ENDPOINT = "http://localhost:5000";
-  // const ENDPOINT = "https://yadnesh-chat-application.herokuapp.com/";
-  let ENDPOINT;
-  if (process.env.NODE_ENV === "development") {
-    ENDPOINT = "http://localhost:5000";
-  } else {
-    ENDPOINT = process.env.REACT_APP_ENDPOINT;
-  }
 
-  // state is cleared when component is loaded first time or removed
-  // useEffect(() => {
-  //   clearChatState();
-  // }, [clearChatState]);
+  let ENDPOINT = process.env.REACT_APP_ENDPOINT;
+  // if (process.env.NODE_ENV === "development") {
+  //   ENDPOINT = "http://localhost:5000";
+  // } else {
+  //   ENDPOINT = process.env.REACT_APP_ENDPOINT;
+  // }
 
   useEffect(() => {
     //getting values from URL and storing to redux state
 
     //passing domain to "io"
     socket = io(ENDPOINT);
-    // //setting state
-    // setName(userName);
-    // //dispatching action
-    // addUserName(username);
-    // //setting state
-    // setRoom(roomName);
-    // //dispatching action
-    // addRoomName(room);
 
     // Transmitting the object " { username, room, displayPhoto,e mail }" as soon as someone joins the room
     //The join keyword is reserved in socket.io and is executed whenever a new connection is made
@@ -134,27 +122,34 @@ const Chat = React.memo((props) => {
       setToggle(true);
     }
   };
-  // const leaveRoom = () => {
-  //   socket.emit("leftRoom", room, username);
-  // };
+  const sendMoney = () => {
+    displayRazorpay();
+    console.log("money sent");
+  };
   return (
     <div className="chat">
       <div className="chat__header">
         <GroupIcon className="groupIcon" />
+        <IconButton>
+          <div className="tooltip">
+            <FormatListBulletedIcon
+              className="white memberIcon"
+              onClick={toggleMe}
+            />
+            <span className="tooltiptext">Group Members</span>
+          </div>
+        </IconButton>
         <InfoBar room={room} />
         <div className="chat__headerRight">
           <IconButton>
             <div className="tooltip">
-              <FormatListBulletedIcon
-                className="white memberIcon"
-                onClick={toggleMe}
-              />
-              <span className="tooltiptext">Group Members</span>
+              <AttachMoneyIcon className="white" onClick={sendMoney} />
+              <span className="tooltiptext">Send Money</span>
             </div>
           </IconButton>
           <IconButton>
             <div className="tooltip">
-              <Link to="/room"  className="exit__button">
+              <Link to="/room" className="exit__button">
                 <CancelRoundedIcon className="white" />
               </Link>
               <span className="tooltiptext">Exit Chat Room</span>

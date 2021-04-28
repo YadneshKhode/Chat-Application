@@ -24,10 +24,6 @@ const UserDetails = (props) => {
             onChange={(event) => setRoom(event.target.value)}
             required
           />
-          {/* <Link
-            onClick={(e) => (!username || !room ? e.preventDefault() : null)}
-            to={`/chat?username=${username}&room=${room}`}
-          > */}
           <Link
             onClick={(e) => (!username || !room ? e.preventDefault() : null)}
             to="/chat"
@@ -42,6 +38,7 @@ const UserDetails = (props) => {
           </Link>
         </form>
       </div>
+      <h1 className="information"> If using mobile use Mozilla Firefox </h1>
     </div>
   );
 };

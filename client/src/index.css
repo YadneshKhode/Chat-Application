@@ -270,6 +270,9 @@ ToolTip CSS
   display: flex;
   justify-content: center;
   align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .centered-form__box {
@@ -388,8 +391,16 @@ ToolTip CSS
 .chat__body .sidebar__search {
   display: none;
 }
+.information {
+  display: none;
+}
 /* 768 1024 */
-
+@media only screen and (max-width: 600px) {
+  .information {
+    display: block;
+    padding: 0 10%;
+  }
+}
 @media only screen and (max-width: 820px) {
   .chat__body .sidebar__chats,
   .chat__body .sidebar__search {
@@ -497,4 +508,35 @@ ToolTip CSS
   cursor: pointer;
   font-weight: 600;
   border-color: black;
+}
+
+@media only screen and (max-width: 400px) {
+  .chat,
+  .app__body,
+  .app {
+    overflow: auto;
+  }
+
+  .chat__footer > form {
+    flex: 1 1;
+    display: flex;
+    overflow: hidden;
+  }
+  .centered-form__box {
+    width: 95%;
+  }
+  .app {
+    display: block;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .signin-signup {
+    display: flex;
+    justify-content:space-between;
+  }
+  .title {
+    position: absolute;
+    bottom: 320%;
+    left: 17%;
+  }
 }
