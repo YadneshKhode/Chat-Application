@@ -10,7 +10,6 @@ import {
 } from "react-router-dom";
 import UserDetails from "./pages/userDetailPage/userDetailPage.component";
 import LoginPage from "./pages/loginpage/login.component";
-import VideoCallPage from "./pages/videoCallPage/videoCallPage"
 import { connect } from "react-redux";
 import { auth } from "./firebase";
 import { login, logout } from "./redux/user/user.action";
@@ -45,7 +44,6 @@ function App(props) {
           />
           <Route exact path="/room" component={UserDetails} />
           <Route exact path="/chat" component={Chatpage} />
-          <Route exact path="/call" component={VideoCallPage} />
           <Route path="*" component={ErrorPage} />
         </Switch>
       </Router>
